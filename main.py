@@ -1,13 +1,22 @@
+from db import db, ma
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from controllers.cards_controller import cards_bp
 import os
+
+
+  # Allows the models to connect
+
   # Create app will be picked up by flask automatically
 def create_app():
     app = Flask(__name__)
-                                    # The os.environ gets the database from .env
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    
+    app.config ['JSON_SORT_KEYS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') # The os.environ gets the database from .env
+    
+    db.init_app(app)
+    ma.init_app(app)
 
-    db = SQLAlchemy(app)
+    app.register_blueprint(cards_bp)
 
     return app
 
