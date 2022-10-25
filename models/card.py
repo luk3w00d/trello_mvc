@@ -1,4 +1,4 @@
-from db import db, ma
+from init import db, ma
 
 class Card(db.Model):       # This will create a table that can be viewed by the users
     __tablename__ = 'cards'     # Changes the name of the name from card to cards
